@@ -13,12 +13,13 @@ import {
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import React from 'react'
-import axios from 'axios'
 import { useRouter } from "next/navigation"
 import Link  from 'next/link';
 import { toast } from 'react-hot-toast';
+import { useSession, signIn } from "next-auth/react"
 
 const Login = () => {
+    const session = useSession()
     const router = useRouter();
     const [userDetails, setUserDetails] = React.useState({
       email: "",
@@ -26,13 +27,22 @@ const Login = () => {
     })
     const [loading, setLoading] = React.useState(false);
     const [buttonDisabled, setButtonDisabled] = React.useState(false);
+    React.useEffect(() => {
+        if (session?.status === 'authenticated') {
+            router.push('/posts') 
+        }
+    })
     const onLogin = async () => {
         try {
             setLoading(true);
-            const response = await axios.post("/api/login", userDetails);
-            console.log("Login success", response.data);
-            toast.success('Logged In Successfully')
-            router.push("/posts");
+            await signIn('credentials', {...userDetails, redirect: false})
+            .then((callback) => {
+              if (callback?.error) toast.error(callback.error)
+              if(callback?.ok && !callback?.error) {
+                toast.success('Logged in successfully!');
+                router.push("/posts");
+              }
+            })
         } catch (error:any) {
             console.log("Login failed", error.message);
             toast.error("Error logging in!");
