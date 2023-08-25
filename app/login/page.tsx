@@ -16,6 +16,7 @@ import React from 'react'
 import axios from 'axios'
 import { useRouter } from "next/navigation"
 import Link  from 'next/link';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const router = useRouter();
@@ -28,11 +29,13 @@ const Login = () => {
     const onLogin = async () => {
         try {
             setLoading(true);
-            const response = await axios.post("/api/users/login", userDetails);
+            const response = await axios.post("/api/login", userDetails);
             console.log("Login success", response.data);
+            toast.success('Logged In Successfully')
             router.push("/posts");
         } catch (error:any) {
             console.log("Login failed", error.message);
+            toast.error("Error logging in!");
         } finally{
             setLoading(false);
         }

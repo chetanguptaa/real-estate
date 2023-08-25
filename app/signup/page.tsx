@@ -14,6 +14,7 @@ import React from 'react'
 import axios from 'axios'
 import { useRouter } from "next/navigation"
 import Link from 'next/link'
+import { toast } from 'react-hot-toast';
 
 const SignupPage = () => {
     const router = useRouter();
@@ -26,11 +27,13 @@ const SignupPage = () => {
     const onSignup = async () => {
         try {
             setLoading(true);
-            const response = await axios.post("/api/users/signup", userDetails);
+            const response = await axios.post("/api/signup", userDetails);
             console.log("successfully signed up", response.data);
+            toast.success('Signed up Successfully!')
             router.push("/posts");
         } catch (error:any) {
             console.log("Signup failed", error.message);
+            toast.error('Error Signing up!')
         } finally{
             setLoading(false);
         }
