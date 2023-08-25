@@ -15,6 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import React from 'react'
 import axios from 'axios'
 import { useRouter } from "next/navigation"
+import Link  from 'next/link';
 
 const Login = () => {
     const router = useRouter();
@@ -29,7 +30,7 @@ const Login = () => {
             setLoading(true);
             const response = await axios.post("/api/users/login", userDetails);
             console.log("Login success", response.data);
-            router.push("/profile");
+            router.push("/posts");
         } catch (error:any) {
             console.log("Login failed", error.message);
         } finally{
@@ -110,11 +111,12 @@ const Login = () => {
               Apple
             </Button>
           </div>
-
           <p className="mt-2 text-xs text-center text-gray-700 mb-2">
             {" "}
             Don't have an account?{" "}
-            <span className=" text-blue-600 hover:underline">Sign up</span>
+            <Link href={'/signup'}>
+              <span className=" text-blue-600 hover:underline">Sign up</span>
+            </Link>
           </p>
         </Card>
       </div>

@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label'
 import React from 'react'
 import axios from 'axios'
 import { useRouter } from "next/navigation"
+import Link from 'next/link'
 
 const SignupPage = () => {
     const router = useRouter();
@@ -27,7 +28,7 @@ const SignupPage = () => {
             setLoading(true);
             const response = await axios.post("/api/users/signup", userDetails);
             console.log("successfully signed up", response.data);
-            router.push("/profile");
+            router.push("/posts");
         } catch (error:any) {
             console.log("Signup failed", error.message);
         } finally{
@@ -103,7 +104,9 @@ const SignupPage = () => {
           <p className="mt-2 text-xs text-center text-gray-700 mb-2">
             {" "}
             Already have an account?{" "}
-            <span className=" text-blue-600 hover:underline">Sign In</span>
+            <Link href={'/login'}>
+              <span className=" text-blue-600 hover:underline">Sign in</span>
+            </Link>
           </p>
         </Card>
       </div>
