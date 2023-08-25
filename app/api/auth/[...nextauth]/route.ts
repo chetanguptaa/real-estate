@@ -5,7 +5,6 @@ import AppleProvider from "next-auth/providers/apple";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { NextResponse } from "next/server";
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -21,29 +20,36 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "credentials",
             credentials: {
-                email: { label: "Email", type: "text", placeholder: "" },
+                email: { label: "Email", type: "text", placeholder: "jsmith" },
                 password: { label: "Password", type: "password" },
+                username: { label: "Username", type: "text", placeholder: "John Smith" },
             },
             async authorize(credentials) {
-                if(credentials?.email == null) return;
-                if(credentials.password == null) return; 
+                // check to see if email and password is there
+                if(!credentials?.email || !credentials.password) {
+                    throw new Error('Please enter an email and password')
+                }
+                // check to see if user exists
                 const user = await prisma.user.findUnique({
                     where: {
-                        email: credentials?.email
+                        email: credentials.email
                     }
                 });
-                if(!user) {
-                    return NextResponse.json({error: "User does not exist"}, {status: 400})
+                // if no user was found 
+                if (!user || !user?.password) {
+                    throw new Error('No user found')
                 }
+                // check to see if password matches
                 const passwordMatch = await bcrypt.compare(credentials.password, user.password)
+                // if password does not match
                 if (!passwordMatch) {
                     throw new Error('Incorrect password')
                 }
-                return user as any;
+                return user;
             },
         }),  
     ],
-    secret: process.env.SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt",
     },
