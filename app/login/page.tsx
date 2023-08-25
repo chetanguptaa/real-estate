@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -15,11 +14,9 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import React from 'react'
 import axios from 'axios'
-import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation"
 
 const Login = () => {
-    const { toast } = useToast()
     const router = useRouter();
     const [userDetails, setUserDetails] = React.useState({
       email: "",
@@ -32,17 +29,9 @@ const Login = () => {
             setLoading(true);
             const response = await axios.post("/api/users/login", userDetails);
             console.log("Login success", response.data);
-            toast({
-              title: "Success",
-              description: "login successfully",
-            })
             router.push("/profile");
         } catch (error:any) {
             console.log("Login failed", error.message);
-            toast({
-              title: "Error",
-              "description": "error logging in"
-            })
         } finally{
             setLoading(false);
         }
@@ -70,7 +59,7 @@ const Login = () => {
               <Input 
               id="email" 
               type="email" 
-              placeholder="" 
+              placeholder="me@example.com" 
               onChange={(e) => setUserDetails({
                 ...userDetails, email: e.target.value
               })}
@@ -98,7 +87,7 @@ const Login = () => {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <Button className="w-full" onClick={onLogin}>Login</Button>
+            {buttonDisabled ? <Button disabled className="w-full">Login</Button> : <Button className="w-full" onClick={onLogin}>Login</Button>}
           </CardFooter>
           <div className="relative mb-2">
             <div className="absolute inset-0 flex items-center">
