@@ -10,8 +10,8 @@ export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
         AppleProvider({
-            clientId: process.env.GITHUB_ID!,
-            clientSecret: process.env.GITHUB_SECRET!,
+            clientId: process.env.APPLE_ID!,
+            clientSecret: process.env.APPLE_SECRET!,
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_ID!,
