@@ -15,9 +15,17 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link'
 import Logout from './logout';
+import { useSetRecoilState } from 'recoil'
+import { createAListingState } from '@/store/listingStateAtom'
+import { useRouter } from 'next/navigation';
 
 const Profile = () => {
-    const [createAListing, setCreateAListing] = React.useState(false);
+    const router = useRouter();
+    const setCreateAListing = useSetRecoilState(createAListingState)
+    const buttonOnClickListing = () => {
+        setCreateAListing(true);
+        router.push('/create-post');
+    }
     return (
         <div className='pt-4 pr-14 pb-4'>
             <DropdownMenu>
@@ -34,7 +42,7 @@ const Profile = () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         <PlusSquare className="mr-2 h-4 w-4" />
-                        <Button onClick={() => setCreateAListing(!createAListing)} variant="ghost">Create a listing</Button>
+                        <Button onClick={buttonOnClickListing} variant="ghost">Create a listing</Button>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <Logout />
