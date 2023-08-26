@@ -1,6 +1,5 @@
 "use client"
 
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { DropdownMenuItem } from "./ui/dropdown-menu";
 import { LogOut } from "lucide-react";
