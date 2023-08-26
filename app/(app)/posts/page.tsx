@@ -1,9 +1,17 @@
+'use client'
+
+import { createAListingState } from '@/store/listingStateAtom'
 import React from 'react'
+import { useRecoilValue } from 'recoil'
+import CreateAListing from '@/components/listing/CreateAListing'
 
 const PostsPage = () => {
-  return (
-    <div className='p-8'>PostsPage</div>
-  )
+    const listingState = useRecoilValue(createAListingState);
+    return (
+        <div className='p-8'>
+          {listingState && <CreateAListing />}
+        </div>
+    )
 }
 
 export default PostsPage
