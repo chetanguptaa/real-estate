@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react'
+import React from 'react'
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { DropdownMenuItem } from '../ui/dropdown-menu'
 
 const CreateAListing = () => {
     const [listingDetails, setListingDetails] = React.useState({
@@ -25,6 +24,12 @@ const CreateAListing = () => {
         location: "",
         price: 0
     })
+    const handleTypeChange = (value: string) => {
+        setListingDetails((prevDetails) => ({
+            ...prevDetails,
+            type: value
+        }));
+    };
     return (
             <Card className="w-[350px]">
                 <CardHeader>
@@ -36,7 +41,7 @@ const CreateAListing = () => {
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Type</Label>
-                                <Select>
+                                <Select onValueChange={(value) => handleTypeChange(value)}>
                                     <SelectTrigger id="type">
                                         <SelectValue placeholder="select" />
                                     </SelectTrigger>
@@ -50,15 +55,18 @@ const CreateAListing = () => {
                                 <Label htmlFor="location">Location</Label>
                                 <Input id="location" placeholder="Location of your listing" />
                             </div>
-                            {listingDetails.type = "Sell"} : 
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="price">Price/sq. feet</Label>
-                                <Input id="price" placeholder="Price of your listing" />
-                            </div> 
-                            ? 
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="price">Price per week</Label>
-                                <Input id="price" placeholder="Price of your listing" />
+                                {listingDetails.type == "sell" ? (
+                                    <>
+                                        <Label htmlFor="price">Price/sq. feet</Label>
+                                        <Input id="price" placeholder="Price of your listing" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <Label htmlFor="price">Price per week</Label>
+                                        <Input id="price" placeholder="Price of your listing" />
+                                    </>
+                                )}
                             </div>
                         </div>
                     </form>
