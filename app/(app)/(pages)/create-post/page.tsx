@@ -5,7 +5,7 @@ import CreateAListing from '@/components/listing/CreateAListing'
 
 const CreatePostPage = () => {
     return (
-        <div className='p-8'>
+        <div className='pt-4'>
             <CreateAListing />
         </div>
     )
