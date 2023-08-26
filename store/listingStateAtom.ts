@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const createAListingState = atom({
-    key: 'createAListing',
+export const canCreateAListingState = atom({
+    key: 'canCreateAListing',
     default: false,
 });
