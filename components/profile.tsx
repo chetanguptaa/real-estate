@@ -16,12 +16,12 @@ import {
 import Link from 'next/link'
 import Logout from './logout';
 import { useSetRecoilState } from 'recoil'
-import { createAListingState } from '@/store/listingStateAtom'
+import { canCreateAListingState } from '@/store/listingStateAtom'
 import { useRouter } from 'next/navigation';
 
 const Profile = () => {
     const router = useRouter();
-    const setCreateAListing = useSetRecoilState(createAListingState)
+    const setCreateAListing = useSetRecoilState(canCreateAListingState)
     const buttonOnClickListing = () => {
         setCreateAListing(true);
         router.push('/create-post');
