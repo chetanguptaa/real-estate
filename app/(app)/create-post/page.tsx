@@ -5,7 +5,7 @@ import React from 'react'
 import { useRecoilValue } from 'recoil'
 import CreateAListing from '@/components/listing/CreateAListing'
 
-const PostsPage = () => {
+const CreatePostPage = () => {
     const listingState = useRecoilValue(createAListingState);
     return (
         <div className='p-8'>
@@ -14,4 +14,4 @@ const PostsPage = () => {
     )
 }
 
-export default PostsPage
+export default CreatePostPage
