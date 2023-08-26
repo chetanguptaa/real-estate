@@ -7,7 +7,7 @@ export const createAListingAtom  = atom({
         location: "",
         price: 0,
         contact: "000-0000-000",
-        descrition: "",
+        description: "",
         image: [] as any
     }
 })
