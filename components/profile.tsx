@@ -1,8 +1,8 @@
 "use client"
-
 import React from 'react'
 import {
-    Github,
+    Github, 
+    PlusSquare,
 } from "lucide-react"
 import { Button } from '@/components/ui/button'
 import {
@@ -16,13 +16,13 @@ import {
 import Link from 'next/link'
 import Logout from './logout';
 
-
 const Profile = () => {
+    const [createAListing, setCreateAListing] = React.useState(false);
     return (
         <div className='pt-4 pr-14 pb-4'>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="outline">Profile</Button>
+                    <Button variant="ghost">Profile</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -30,6 +30,11 @@ const Profile = () => {
                     <DropdownMenuItem>
                         <Github className="mr-2 h-4 w-4" />
                         <Link href={'https://github.com/chetanguptaa'} target="_blank" className='font-medium pl-4 mb-[6px] mt-[7px]'>Github</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        <PlusSquare className="mr-2 h-4 w-4" />
+                        <Button onClick={() => setCreateAListing(!createAListing)} variant="ghost">Create a listing</Button>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <Logout />
