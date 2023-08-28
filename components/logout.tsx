@@ -5,7 +5,10 @@ import { DropdownMenuItem } from "./ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import { toast } from "react-hot-toast"
-import { signOut, useSession } from "next-auth/react";
+import { 
+    signOut, 
+    useSession 
+} from "next-auth/react";
 
 const Logout = () => {
     const router = useRouter();
