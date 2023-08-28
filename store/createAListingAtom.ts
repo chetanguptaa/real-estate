@@ -5,9 +5,21 @@ export const createAListingAtom  = atom({
     default: {
         type: "rent",
         location: "",
-        price: 0,
+        pricePerSqFeet: '0',
+        pricePerMonth: '0',
         contact: "000-0000-000",
         description: "",
-        image: [] as any
+        image: [] as Array<String>
     }
 })
+
+
+
+/***
+ *
+  description    String
+  contact        String
+  pricePerSqFeet Int?
+  pricePerMonth  Int?
+  images         Image[]
+ */
