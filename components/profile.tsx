@@ -15,15 +15,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link'
 import Logout from './logout';
-import { useSetRecoilState } from 'recoil'
-import { createAListingState } from '@/store/listingStateAtom'
 import { useRouter } from 'next/navigation';
 
 const Profile = () => {
     const router = useRouter();
-    const setCreateAListing = useSetRecoilState(createAListingState)
     const buttonOnClickListing = () => {
-        setCreateAListing(true);
         router.push('/create-post');
     }
     return (
@@ -42,7 +38,7 @@ const Profile = () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         <PlusSquare className="mr-2 h-4 w-4" />
-                        <Button onClick={buttonOnClickListing} variant="ghost">Create a listing</Button>
+                        <Button onClick={buttonOnClickListing} variant="ghost">Create a Listing</Button>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <Logout />

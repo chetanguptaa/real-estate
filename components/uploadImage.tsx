@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 
-const uploadImage = () => {
-  return (
-    <div>
-        <Label htmlFor="picture">Picture</Label>
-        <Input id="picture" type="file" />
-    </div>
-  )
+type Props = ComponentPropsWithRef<"input">;
+
+const UploadImage = (props: Props) => {
+    return (
+        <div>
+            <Label htmlFor="picture">Picture</Label>
+            <Input 
+                {...props}
+                id="picture" 
+                type="file" 
+                multiple 
+                accept='images/*'
+            />
+        </div>
+    )
 }
 
-export default uploadImage
+export default UploadImage
