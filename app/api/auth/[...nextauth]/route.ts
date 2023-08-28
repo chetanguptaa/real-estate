@@ -5,7 +5,6 @@ import AppleProvider from "next-auth/providers/apple";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -23,6 +22,7 @@ export const authOptions: NextAuthOptions = {
             credentials: {
                 email: { label: "Email", type: "text", placeholder: "jsmith" },
                 password: { label: "Password", type: "password" },
+                username: { label: "Username", type: "text", placeholder: "John Smith" },
             },
             async authorize(credentials) {
                 // check to see if email and password is there
@@ -49,27 +49,6 @@ export const authOptions: NextAuthOptions = {
             },
         }),  
     ],
-    callbacks: {
-        session: ({ session, token }) => {
-            return {
-                ...session,
-                user: {
-                    ...session.user,
-                    id: token.id
-                }
-            }
-        },
-        jwt: ({ token, user }) => {
-            if(user) {
-                const u = user as unknown as User
-                return {
-                    ...token,
-                    id: u.id,
-                }
-            }
-            return token;
-        }
-    },
     secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt",
@@ -78,4 +57,4 @@ export const authOptions: NextAuthOptions = {
 }
 
 const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST}
