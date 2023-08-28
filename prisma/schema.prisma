@@ -10,8 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PostType {
+  rent
+  sell
+}
+
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
+  id       String @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  email    String @unique
   password String
+  posts    Post[] 
+}
+
+model Post {
+  id             String   @id @default(dbgenerated("concat('pos_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  description    String
+  userId         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id])
+  type           PostType @default(rent)
+  location       String
+  contact        String
+  pricePerSqFeet String?
+  pricePerMonth  String?
+  images         String[]
 }
