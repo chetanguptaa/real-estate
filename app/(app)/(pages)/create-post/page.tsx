@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import CreateAListing from '@/components/listing/CreateAListing'
 
