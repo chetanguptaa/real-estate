@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
-import {
-    Github, 
+import { 
     PlusSquare,
 } from "lucide-react"
 import { Button } from '@/components/ui/button'
@@ -13,13 +12,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Link from 'next/link'
 import Logout from './logout';
 import { useRouter } from 'next/navigation';
 
 const Profile = () => {
     const router = useRouter();
-    const buttonOnClickListing = () => {
+    const creatingAListing = () => {
         router.push('/create-post');
     }
     return (
@@ -32,13 +30,8 @@ const Profile = () => {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                        <Github className="mr-2 h-4 w-4" />
-                        <Link href={'https://github.com/chetanguptaa'} target="_blank" className='font-medium pl-4 mb-[6px] mt-[7px]'>Github</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
                         <PlusSquare className="mr-2 h-4 w-4" />
-                        <Button onClick={buttonOnClickListing} variant="ghost">Create a Listing</Button>
+                        <Button onClick={creatingAListing} variant="ghost">Create a Listing</Button>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <Logout />
